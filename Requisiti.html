@@ -1,22 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creazione tabella</title>
+<meta charset="UTF-8">
+<title>Creazione tabella</title>
+<script>
+function creaCampi() 
+{
+    let n = document.getElementById("numero").value;
+    let area = document.getElementById("campi");
+    area.innerHTML = "";
+    for (let i = 1; i <= n; i++) 
+    {
+        area.innerHTML += `
+        Colonna ${i}: 
+        <input type="text" name="nome[]" placeholder="Nome" required>
+        <select name="tipo[]">
+            <option value="VARCHAR">VARCHAR</option>
+            <option value="INT">INT</option>
+            <option value="BOOLEAN">BOOLEAN</option>
+            <option value="CHAR">CHAR</option>
+        </select>
+        NOT NULL <input type="checkbox" name="notnull[${i}]">
+        PRIMARY KEY <input type="checkbox" name="pk[${i}]">
+        <br><br>
+        `;
+    }
+}
+</script>
 </head>
 <body>
-    <form action="Tabelle.php" method="post"><br>
-        Nome Tabella: <input type="text" name="NomeTabella"><br>
-        Numero Colonne: <input type="number" name="numero"><br>
-        Nome Colonna: <input type="text" name="nome"><br>
-        Tipo <select name="Tipo" id="Tipo"> <br>
-            <option value="varchar">varchar</option><br>
-            <option value="boolean">Boolean</option><br>
-            <option value="int">Int</option><br>
-            <option value="char">Char</option><br>
-        </select> <br>
-        <button type="submit">Invia i dati</button><br>
+<form action="Tabelle.php" method="post">
+    Nome Tabella:
+    <input type="text" name="NomeTabella" required>
+    <br><br>
+    Numero Colonne:
+    <input type="number" id="numero" onchange="creaCampi()" min="1" required>
+    <br><br>
+    <div id="campi"></div>
+    <button type="submit">Invia i dati</button>
+</form>
 </body>
 </html>
